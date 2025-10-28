@@ -74,11 +74,12 @@ def replace_in_paragraph(paragraph, old_text, new_text):
         after = runs[last_idx].text[affected_runs[-1][2]:]
 
         # === Главное действие: замена текста ===
-        # В ПЕРВОМ затронутом run оставляем "до" + новый текст
-        runs[first_idx].text = before + new_text
-
-        # Обновляем последний run, если он не первый
-        if first_idx != last_idx:
+        if first_idx == last_idx:
+            # Замена происходит внутри одного run
+            runs[first_idx].text = before + new_text + after
+        else:
+            # Замена охватывает несколько run'ов
+            runs[first_idx].text = before + new_text
             runs[last_idx].text = after
 
         # Удаляем промежуточные run (между first и last)
