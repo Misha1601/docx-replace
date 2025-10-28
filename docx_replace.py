@@ -1,6 +1,3 @@
-from docx import Document
-
-
 def replace_in_paragraph(paragraph, old_text, new_text):
     """
     Заменяет все вхождения old_text на new_text в одном параграфе.
@@ -100,7 +97,10 @@ def replace_in_paragraph(paragraph, old_text, new_text):
 
 def docx_replace(doc, **kwargs):
     """Заменяет текст во всех элементах документа"""
-    for old_text, new_text in kwargs.items():
+    for key, value in kwargs.items():
+        old_text = str(key)
+        new_text = str(value)
+
         for paragraph in doc.paragraphs:
             replace_in_paragraph(paragraph, old_text, new_text)
 
@@ -114,21 +114,3 @@ def docx_replace(doc, **kwargs):
                             for nested_cell in nested_row.cells:
                                 for nested_paragraph in nested_cell.paragraphs:
                                     replace_in_paragraph(nested_paragraph, old_text, new_text)
-
-
-
-if __name__ == "__main__":
-
-    # Создаем документ с помощью docx
-    doc = Document("document.docx")
-
-    # производим замену в документе указав пары ключ значение
-    docx_replace(doc, word1="word2", word3="word4")
-
-    # производим замену в документе передав словарь
-    my_dict = {"word5":"word6", "word7": "word8"}
-    docx_replace(doc, **my_dict)
-
-
-    # сохраняем полученный документ
-    doc.save("replaced.docx")

@@ -10,7 +10,7 @@ from docx_replace import docx_replace
 
 
 # Создаем документ с помощью docx
-doc = Document("Pushkin_AS.docx")
+doc = Document("Pushkin_AS2.docx")
 # производим замену в документе указав пары ключ значение
 docx_replace(doc, лебедь="word2", Лебедь="word3")
 # производим замену в документе передав словарь
