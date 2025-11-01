@@ -4,17 +4,12 @@ import os
 from pathlib import Path
 
 import tempfile
-# import pytest
 from docx import Document
-# from docx.text.run import Run
-# from io import BytesIO
 
 # Добавляем корень проекта в PYTHONPATH
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from docx_replace import docx_replace, replace_in_paragraph
-# from docx.shared import Inches
-
 
 # ------------------- Вспомогательные функции -------------------
 
@@ -329,5 +324,8 @@ class TestDocxReplace:
 # ------------------- Запуск через pytest -------------------
 
 if __name__ == "__main__":
-    # Пример запуска: python -m pytest tests/test_docx_replace.py -v
+    # Пример запуска:
+    # python -m pytest test_app.py -v
+    # или
+    # pytest test_app.py -v
     pass
