@@ -167,11 +167,13 @@ class TestDocxReplace:
     """Тесты для основной функции docx_replace."""
 
     def test_simple_replacement(self):
+        """Простая замена текста в параграфе."""
         doc = create_test_doc(paragraphs=["Hello князь world"])
         docx_replace(doc, князь="word6")
         assert "Hello word6 world" in get_all_text(doc)
 
     def test_multi_run_replacement(self):
+        """Замена текста, охватывающего несколько run'ов."""
         doc = Document()
         p = doc.add_paragraph()
         p.add_run("Hel")
@@ -180,57 +182,68 @@ class TestDocxReplace:
         assert "Hello word6!" in get_all_text(doc)
 
     def test_multiple_occurrences(self):
+        """Замена нескольких вхождений одного и того же текста."""
         doc = create_test_doc(paragraphs=["князь и князь снова князь"])
         docx_replace(doc, князь="word6")
         assert get_all_text(doc) == "word6 и word6 снова word6"
 
     def test_empty_old_text(self):
+        """Проверка замены с пустым ключом."""
         doc = create_test_doc(paragraphs=["test"])
         docx_replace(doc, **{"": "ignored"})
         assert get_all_text(doc) == "test"
 
     def test_empty_new_text(self):
+        """Замена текста на пустую строку (удаление)."""
         doc = create_test_doc(paragraphs=["Remove this князь now"])
         docx_replace(doc, князь="")
         assert get_all_text(doc) == "Remove this  now"
 
     def test_no_match(self):
+        """Проверка случая, когда текст для замены не найден."""
         doc = create_test_doc(paragraphs=["Nothing to replace"])
         docx_replace(doc, князь="word6")
         assert get_all_text(doc) == "Nothing to replace"
 
     def test_same_old_and_new(self):
+        """Заменяемый и новый текст совпадают."""
         doc = create_test_doc(paragraphs=["князь"])
         docx_replace(doc, князь="князь")
         assert get_all_text(doc) == "князь"
 
     def test_unicode_and_special_chars(self):
+        """Замена текста с юникод символами и специальными знаками."""
         doc = create_test_doc(paragraphs=["Привет, князь Салтан!"])
         docx_replace(doc, князь="word6", Салтан="word8")
         assert "Привет, word6 word8!" in get_all_text(doc)
 
     def test_replacement_in_table(self):
+        """Замена текста в таблице."""
         doc = create_test_doc(tables=[[["Cell with князь"]]])
         docx_replace(doc, князь="word6")
         assert "Cell with word6" in get_all_text(doc)
 
     def test_replacement_in_nested_table(self):
+        """Замена текста во вложенной таблице."""
         doc = create_test_doc(tables=[[["Outer"]]], nested_tables=True)
         docx_replace(doc, князь="word6")
         text = get_all_text(doc)
         assert "nested word6" in text
 
     def test_overlapping_pattern(self):
+        """Замена с перекрывающимися шаблонами."""
         doc = create_test_doc(paragraphs=["aaa"])
         docx_replace(doc, aa="X")
         assert get_all_text(doc) == "Xa"
 
     def test_multiple_keys(self):
+        """Замена нескольких ключей одновременно."""
         doc = create_test_doc(paragraphs=["князь Салтан сказал: ты, куда?"])
         docx_replace(doc, **{"князь": "word6", "Салтан": "word8", "ты, куда": "word9"})
         assert "word6 word8 сказал: word9?" in get_all_text(doc)
 
     def test_replace_in_paragraphs_only(self):
+        """Замена текста только в параграфах."""
         doc = Document()
         doc.add_paragraph("Original text here.")
         doc.add_paragraph("Another line with Original.")
@@ -239,6 +252,7 @@ class TestDocxReplace:
         assert doc.paragraphs[1].text == "Another line with New."
 
     def test_replace_in_table_cells(self):
+        """Замена текста в ячейках таблицы."""
         doc = Document()
         table = doc.add_table(rows=1, cols=2)
         cell1 = table.cell(0, 0)
@@ -250,6 +264,7 @@ class TestDocxReplace:
         assert table.cell(0, 1).text == "Cell 2 Replaced X"
 
     def test_replace_in_nested_elements_structure(self):
+        """Замена текста с изменением структуры вложенных элементов."""
         doc = Document()
         p = doc.add_paragraph()
         p.add_run("AA")
@@ -263,12 +278,14 @@ class TestDocxReplace:
         assert runs_after[2].text == "CC"
 
     def test_replace_multiple_keys_in_one_call(self):
+        """Замена нескольких ключей в одном вызове функции."""
         doc = Document()
         p = doc.add_paragraph("First Second Third")
         docx_replace(doc, First="1", Second="2", Third="3")
         assert p.text == "1 2 3"
 
     def test_replace_empty_dict(self):
+        """Проверка работы с пустым словарем замен."""
         doc = Document()
         p = doc.add_paragraph("Hello World!")
         original_text = p.text
@@ -276,12 +293,14 @@ class TestDocxReplace:
         assert p.text == original_text
 
     def test_replace_no_paragraphs_no_tables(self):
+        """Проверка работы с пустым документом."""
         doc = Document()
         docx_replace(doc, test="replacement")
         assert len(doc.paragraphs) == 0
         assert len(doc.tables) == 0
 
     def test_replace_with_runs_merging_logic(self):
+        """Проверка логики объединения run'ов при замене."""
         doc = Document()
         p = doc.add_paragraph()
         p.add_run("Start ")
@@ -293,6 +312,7 @@ class TestDocxReplace:
         assert len(p.runs) == 3
 
     def test_run_structure_preserved_after_replacement(self):
+        """Проверка сохранения структуры документа после замены."""
         doc = Document()
         p = doc.add_paragraph()
         p.add_run("Start ")
