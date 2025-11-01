@@ -82,9 +82,14 @@ def replace_in_paragraph(paragraph, old_text, new_text):
             runs[first_idx].text = before + new_text
             runs[last_idx].text = after
 
-        # Удаляем промежуточные run (между first и last)
-        for idx in range(last_idx - 1, first_idx, -1):
-            paragraph._element.remove(runs[idx]._element)
+        # Очищаем промежуточные run (между first и last)
+        if after == '':
+            last_namber = last_idx
+        else:
+            last_namber = last_idx -1
+        for idx in range(last_namber, first_idx, -1):
+            # paragraph._element.remove(runs[idx]._element)
+            runs[idx].text = ''
 
         # Обновляем для следующей итерации
         runs = paragraph.runs
