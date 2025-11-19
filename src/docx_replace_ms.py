@@ -84,10 +84,10 @@ def replace_in_paragraph(paragraph, old_text, new_text):
 
         # Очищаем промежуточные run (между first и last)
         if after == '':
-            last_namber = last_idx
+            last_number = last_idx
         else:
-            last_namber = last_idx -1
-        for idx in range(last_namber, first_idx, -1):
+            last_number = last_idx -1
+        for idx in range(last_number, first_idx, -1):
             runs[idx].text = ''
 
         # Обновляем для следующей итерации
