@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools >= 65.5.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "docx_replace_ms"
+version = "0.0.1"
+authors = [
+  { name="Михаил Никифоров", email="nikiforov1601@yandex.ru" },
+]
+description = "Выполняет замену текста в документах `docx` аналогично Microsoft Word"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Operating System :: OS Independent",
+]
+keywords = ["docx", "office", "word", "microsoft"]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+
+[project.urls]
+Homepage = "https://github.com/Misha1601/docx-replace"
+Issues = "https://github.com/Misha1601/docx-replace/issues"
