@@ -88,11 +88,9 @@ def replace_in_paragraph(paragraph, old_text, new_text):
         else:
             last_namber = last_idx -1
         for idx in range(last_namber, first_idx, -1):
-            # paragraph._element.remove(runs[idx]._element)
             runs[idx].text = ''
 
         # Обновляем для следующей итерации
-        runs = paragraph.runs
         full_text = ''.join(run.text for run in runs)
         # Сдвигаем позицию поиска за пределы только что заменённого фрагмента
         start_search = pos + len(new_text)

@@ -9,7 +9,7 @@ from docx import Document
 # Добавляем корень проекта в PYTHONPATH
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/src')
 
-from docx_replace import docx_replace, replace_in_paragraph
+from docx_replace_ms import docx_replace, replace_in_paragraph
 
 # ------------------- Вспомогательные функции -------------------
 
