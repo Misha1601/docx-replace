@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "docx_replace_ms"
-version = "0.0.2"
+version = "1.0.0"
 authors = [
   { name="Михаил Никифоров", email="nikiforov1601@yandex.ru" },
 ]
